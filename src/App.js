@@ -12,11 +12,11 @@ function App() {
   const [diceArray, setDiceArray] = useState(setNewDiceArray());
 
   useEffect(() => {
-    setIsGameCompleted(
-      diceArray.filter((dice) => dice.isLocked === false).length === 0
-        ? true
-        : false
+    const allLocked = diceArray.every((dice) => dice.isLocked);
+    const allSameNumber = diceArray.every(
+      (dice) => dice.number === diceArray[0].number
     );
+    setIsGameCompleted(allLocked && allSameNumber);
   }, [diceArray]);
 
   function getRandomNumber() {
